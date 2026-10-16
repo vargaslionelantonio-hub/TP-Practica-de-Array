@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    let elec = parseInt(prompt("elige una de estas opciones:" + "\n" + "1: mostrar inventario" + "\n" + "2: consultar productos" + "\n" + "3: reemplazar producto" + "\n" + "4: agregar producto " + "\n" + "5: salir"));
+    let productos = ["1: teclado", "2: mouse", "3: monitor", "4: auriculares"];
+
+    switch(elec){
+        case 1:
+            alert(productos[0] + "\n" + productos[1] + "\n" + productos[2] + "\n" + productos[3]);
+            break;
+        case 2:
+            let consulta = parseInt(prompt("elige un producto del 1 al 4: " + "\n" + productos[0] + "\n" + productos[1] + "\n" + productos[2] + "\n" + productos[3]));
+            consulta2 = consulta - 1;
+            alert("el producto seleccionado es: " + productos[consulta2]); 
+            break;
+        case 3:
+            let indice = parseInt(prompt("elige un producto del 1 al 4: " + "\n" + productos[0] + "\n" + productos[1] + "\n" + productos[2] + "\n" + productos[3])) - 1;
+            let nuevoProducto = prompt("ingresa el nombre del nuevo producto, por favor para mayor organización agrege el numero que le coresponde, como '3: control': ");
+            productos.splice(indice, 1, nuevoProducto);
+            alert("el producto ha sido reemplazado, el nuevo inventario es: " + "\n" + productos.join("\n"));
+            break;
+        case 4:
+            let nuevoProducto2 = prompt("ingresa el nombre del nuevo producto, por favor para mayor organización agrege el numero que le coresponde, como '5: control': ");
+            productos.push(nuevoProducto2);
+            alert("el producto ha sido agregado, el nuevo inventario es: " + "\n" + productos.join("\n"));
+        case 5:
+            alert("¡Hasta luego!");
+            break;
+
+        default:
+            alert("opcion no valida");
+            break;
+    }
+
+    
+    </script>
+</body>
+</html>

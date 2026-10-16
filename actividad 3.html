@@ -1,0 +1,252 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Montaña Mágica</title>
+</head>
+<body>
+    <script>
+        // Bienvenida al juego
+        alert(
+            "¡Bienvenido a la Montaña Mágica!\n" +
+            "Tú eres un aventurero en busca de un tesoro legendario. " +
+            "Debes elegir sabiamente..."
+        );
+
+        let enemigos = [
+            { numero: 40, nombre: "dragón" },
+            { numero: 20, nombre: "troll" },
+            { numero: 10, nombre: "ogro" },
+            { numero: 100000, nombre: "hechicero" }
+        ];
+
+        // Objetos del inventario
+        let inventario = [
+            "Poción de vida (+50 HP)",
+            "Manopla (10 DMG)",
+            "Antorcha"
+        ];
+
+        // Variables globales del juego
+        let energia = 100;
+        let ataque = 10;
+        let puntuacion = 0;
+        let juegoTerminado = false;
+
+        // Devuelve un enemigo aleatorio
+        function enemigoAleatorio() {
+            let indice = Math.floor(Math.random() * enemigos.length);
+            return enemigos[indice];
+        }
+
+        // Muestra el estado del personaje y el inventario
+        function personaje() {
+            let option = parseInt(prompt(
+                "ESTADO DEL PERSONAJE\n" +
+                "Energía: " + energia + "\n" +
+                "Ataque: " + ataque + "\n" +
+                "Puntuación: " + puntuacion + "\n\n" +
+                "1: Ver inventario\n" +
+                "2: Seguir con la aventura"
+            ));
+
+            if (option === 1) {
+                let inve = parseInt(prompt(
+                    "INVENTARIO:\n" +
+                    inventario.map((objeto, indice) =>
+                        (indice + 1) + ": " + objeto
+                    ).join("\n") +
+                    "\n\nEscribe el número de un objeto para seleccionarlo."
+                ));
+
+                if (inve >= 1 && inve <= inventario.length) {
+                    let objeto = inventario[inve - 1];
+
+                    if (objeto === "Poción de vida (+50 HP)") {
+                        energia +50
+                        
+                    }
+                } else {
+                    alert("Número de objeto no válido.");
+                }
+            } else if (option === 2) {
+                alert("Sigues con la aventura.");
+            } else {
+                alert("Opción no válida.");
+            }
+        }
+
+        // Primer desafío
+        const eleccion = parseInt(prompt(
+            "Estás frente a tres caminos:\n" +
+            "1. Subir por el sendero rocoso (riesgo de caída).\n" +
+            "2. Atravesar el bosque oscuro (puedes perder energía).\n" +
+            "3. Esperar ayuda (seguro, pero lento).\n" +
+            "Elige 1, 2 o 3:"
+        ));
+
+        // Manejar las elecciones
+        switch (eleccion) {
+            case 1:
+                energia -= 30;
+
+                alert(
+                    "¡El sendero era resbaladizo! Caíste y perdiste " +
+                    "30 de energía.\nEnergía restante: " + energia
+                );
+
+                let explorarCueva = parseInt(prompt(
+                    "Encontraste una cueva al lado del sendero.\n" +
+                    "¿Deseas explorarla?\n" +
+                    "1: Sí\n" +
+                    "2: No"
+                ));
+
+                if (explorarCueva === 1) {
+                    alert(
+                        "Entras a la cueva y encuentras los restos " +
+                        "de un antiguo aventurero.\n" +
+                        "Junto a él hay una espada legendaria. " +
+                        "Al tomarla, sientes un aumento de poder."
+                    );
+
+                    ataque += 50;
+                    inventario.push("Espada legendaria");
+                    puntuacion += 20;
+
+                    alert(
+                        "Tu ataque aumentó a " + ataque + ".\n" +
+                        "¡Ganaste 20 puntos!"
+                    );
+                } else if (explorarCueva === 2) {
+                    alert("Decidiste no explorar la cueva. Sigues tu camino.");
+                } else {
+                    alert("Opción no válida. Continúas tu camino.");
+                }
+                break;
+
+            case 2:
+                energia -= 20;
+
+                alert(
+                    "Un lobo te atacó en el bosque.\n" +
+                    "Perdiste 20 de energía.\n" +
+                    "Energía restante: " + energia
+                );
+                break;
+
+            case 3:
+                energia = Math.min(100, energia + 10);
+                puntuacion += 5;
+
+                alert(
+                    "Un mercader amable te dio provisiones.\n" +
+                    "Recuperaste energía y ganaste 5 puntos.\n" +
+                    "Energía actual: " + energia
+                );
+                break;
+
+            default:
+                alert("No elegiste correctamente. Pierdes un turno.");
+        }
+
+        // Comprobar si el personaje sigue vivo
+        if (energia <= 0) {
+            juegoTerminado = true;
+            alert("Te quedaste sin energía. ¡Fin de la aventura!");
+        }
+
+        // Consultar el estado del personaje
+        if (!juegoTerminado) {
+            personaje();
+        }
+
+        // Encuentro con un enemigo al salir de la cueva
+        if (!juegoTerminado && eleccion === 1) {
+            let enemigo = enemigoAleatorio();
+
+            alert(
+                "¡Un " + enemigo.nombre + " apareció frente a ti!\n" +
+                "Te preparas para luchar."
+            );
+
+            let option2 = parseInt(prompt(
+                "¿Qué haces primero?\n" +
+                "1: Atacar\n" +
+                "2: Defenderte"
+            ));
+
+            switch (option2) {
+                case 1:
+                    energia -= 30;
+
+                    alert(
+                        "Intentaste atacar al " + enemigo.nombre +
+                        ", pero fallaste y te golpeó.\n" +
+                        "Perdiste 30 de energía."
+                    );
+
+                    if (energia <= 0) {
+                        juegoTerminado = true;
+                        alert("Te quedaste sin energía. ¡Fin de la campaña!");
+                    }
+                    break;
+
+                case 2:
+                    let contra = parseInt(prompt(
+                        "Pudiste defenderte del " + enemigo.nombre + ".\n" +
+                        "Tienes la oportunidad de contraatacar.\n" +
+                        "1: Atacar\n" +
+                        "2: Huir"
+                    ));
+
+                    if (contra === 1) {
+                        alert(
+                            "¡Contraatacaste al " + enemigo.nombre +
+                            " y lograste derrotarlo!\n" +
+                            "Conseguiste una gema de diamante."
+                        );
+
+                        inventario.push("Gema de diamante");
+                        puntuacion += 50;
+
+                        alert("¡Ganaste 50 puntos por derrotar al enemigo!");
+                    } else if (contra === 2) {
+                        energia -= 30;
+
+                        alert(
+                            "Lograste escapar, pero terminaste agotado.\n" +
+                            "Perdiste 30 de energía.\n" +
+                            "Energía restante: " + energia
+                        );
+
+                        if (energia <= 0) {
+                            juegoTerminado = true;
+                            alert("Te quedaste sin energía. ¡Fin de la campaña!");
+                        }
+                    } else {
+                        alert("Opción no válida. El enemigo aprovechó para escapar.");
+                    }
+                    break;
+
+                default:
+                    alert("Dudaste demasiado y el enemigo escapó.");
+            }
+        }
+
+        // Resultado final
+        alert(
+            "FIN DE LA AVENTURA\n\n" +
+            "Energía final: " + energia + "\n" +
+            "Ataque final: " + ataque + "\n" +
+            "Puntuación total: " + puntuacion + " puntos\n" +
+            "Objetos en el inventario: " + inventario.length + "\n\n" +
+            (juegoTerminado
+                ? "Resultado: Derrota"
+                : "Resultado: Aventura finalizada")
+        );
+    </script>
+</body>
+</html>

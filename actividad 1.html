@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let elec = parseInt(prompt("elige una de las actividades del 1 al 3: "));
+
+        switch (elec){
+            case 1:
+                let MiMusica = ["1: jijiji ","2: flaca ", "3: homero ", "4: 11 mil ", "5: diamantes "];
+                alert(MiMusica[0] + "\n" + MiMusica[1] + "\n" + MiMusica[2] + "\n" + MiMusica[3] + "\n" + MiMusica[4]);
+                alert(MiMusica[0])
+                alert(MiMusica[4])
+                break;
+
+            case 2:
+                let MisJuegos = ["1: OSU!", "2: Zelda", "3: enden ring", "4: CS2"];
+                alert(MisJuegos[0] + "\n" + MisJuegos[1] + "\n" + MisJuegos[2] + "\n" + MisJuegos[3]);
+                alert(MisJuegos[1])
+                alert(MisJuegos[2])
+                MisJuegos.shift()
+                MisJuegos.unshift("1:Valorant")
+                alert(MisJuegos[0] + "\n" + MisJuegos[1] + "\n" + MisJuegos[2] + "\n" + MisJuegos[3]);
+                break;
+            case 3:
+                Compras = ["1: pan", "2: leche", "3: huevos", "4: carne", "5: frutas"];
+                alert(Compras[0] + "\n" + Compras[1] + "\n" + Compras[2] + "\n" + Compras[3] + "\n" + Compras[4]);
+                Compras.push("6: verduras")
+                alert(Compras[0] + "\n" + Compras[1] + "\n" + Compras[2] + "\n" + Compras[3] + "\n" + Compras[4] + "\n" + Compras[5]);
+                Compras.pop()
+                alert(Compras[0] + "\n" + Compras[1] + "\n" + Compras[2] + "\n" + Compras[3] + "\n" + Compras[4]);
+                break;
+            default:
+                alert("opcion no valida");
+        }
+    </script>
+    
+</body>
+</html>
